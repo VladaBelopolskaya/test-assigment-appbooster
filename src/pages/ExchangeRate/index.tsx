@@ -21,6 +21,11 @@ const ExchangeRate: React.FC<Props> = ({ getLatest }) => {
     try {
       setIsLoading(true);
       const rates = await getLatest(event.target.value);
+      Object.keys(rates).forEach((key) => {
+        const oldValue = rates[key];
+        const newValue = Math.round((1 / oldValue) * 100) / 100;
+        rates[key] = newValue;
+      });
       setExchangeRate(rates);
     } finally {
       setIsLoading(false);
@@ -43,10 +48,11 @@ const ExchangeRate: React.FC<Props> = ({ getLatest }) => {
         ))}
       </SelectField>
       {isLoading && <Spinner />}
-      {!isLoading && !!Object.keys(exchangeRate).length && (
+      {!isLoading && !!Object.keys(exchangeRate).length && baseValue && (
         <Table
           columnsNames={["Currency", "Value"]}
           tableValues={Object.entries(exchangeRate)}
+          baseValue={baseValue}
         />
       )}
     </>

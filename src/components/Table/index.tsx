@@ -5,10 +5,15 @@ import { Table } from "evergreen-ui";
 // Если таблица будет переиспольховаться - тип надо обощить
 type Props = {
   columnsNames: string[];
-  tableValues: [string, string][];
+  tableValues: [string, number][];
+  baseValue: string;
 };
 
-const CustomTable: React.FC<Props> = ({ columnsNames, tableValues }) => {
+const CustomTable: React.FC<Props> = ({
+  columnsNames,
+  tableValues,
+  baseValue,
+}) => {
   return (
     <Table>
       <Table.Head>
@@ -21,7 +26,9 @@ const CustomTable: React.FC<Props> = ({ columnsNames, tableValues }) => {
         {tableValues.map(([key, value]) => (
           <Table.Row key={key}>
             <Table.TextCell>{key}</Table.TextCell>
-            <Table.TextCell>{value}</Table.TextCell>
+            <Table.TextCell>
+              {value} {baseValue}
+            </Table.TextCell>
           </Table.Row>
         ))}
       </Table.VirtualBody>

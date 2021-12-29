@@ -1,5 +1,5 @@
 export type ObjectString = { [key: string]: string };
-export type ObjectNumber = { [key: string]: string };
+export type ObjectNumber = { [key: string]: number };
 
 export type ConvertProps = {
   from: string;
